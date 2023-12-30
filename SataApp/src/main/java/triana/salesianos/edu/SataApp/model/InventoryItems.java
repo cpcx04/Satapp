@@ -21,13 +21,18 @@ public class InventoryItems {
     @Column(columnDefinition = "uuid")
     private UUID id;
 
-    private EquipmentType type;
+
+    @ManyToOne
+    @JoinColumn(name = "type_id")
+    private Type type;
 
     private String description;
 
     private String status;
 
-    private String location;
+    @ManyToOne
+    @JoinColumn(name = "location_id")
+    private Location location;
 
     private String additionalDetails;
 

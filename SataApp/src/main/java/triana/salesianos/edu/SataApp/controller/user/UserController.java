@@ -130,7 +130,48 @@ public class UserController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Gets all user no validated", content = {
                     @Content(mediaType = "application/json", examples = { @ExampleObject(value = """
-                               
+                             [
+                                 {
+                                     "id": "8b6932a7-aeed-4b4c-bc95-98b9a6817851",
+                                     "username": "paco2",
+                                     "email": "paco@example.com",
+                                     "nombre": "Paco Martinez",
+                                     "role": "ROLE_USER",
+                                     "createdAt": null
+                                 },
+                                 {
+                                     "id": "70a150a3-0a1f-48b3-9fc7-67fba2885c01",
+                                     "username": "luismi3",
+                                     "email": "luismi@example.com",
+                                     "nombre": "Luismi Gonzalez",
+                                     "role": "ROLE_USER",
+                                     "createdAt": null
+                                 },
+                                 {
+                                     "id": "9a98b20f-8f24-4647-af45-45b0bfe63a11",
+                                     "username": "lucia4",
+                                     "email": "lucia@example.com",
+                                     "nombre": "Lucia Sanchez",
+                                     "role": "ROLE_USER",
+                                     "createdAt": null
+                                 },
+                                 {
+                                     "id": "c7d3d0ac-3e68-4cd6-8233-df25d5ef95f6",
+                                     "username": "manuel5",
+                                     "email": "manuel@example.com",
+                                     "nombre": "Manuel Perez",
+                                     "role": "ROLE_USER",
+                                     "createdAt": null
+                                 },
+                                 {
+                                     "id": "f5a2edc4-06d6-4f2d-a9c0-fb72c4a07c7c",
+                                     "username": "antonio6",
+                                     "email": "antonio@example.com",
+                                     "nombre": "Antonio Hernandez",
+                                     "role": "ROLE_USER",
+                                     "createdAt": null
+                                 }
+                             ]  
                             """) }) }),
             @ApiResponse(responseCode = "400", description = "Unable to find any user", content = @Content)
 
