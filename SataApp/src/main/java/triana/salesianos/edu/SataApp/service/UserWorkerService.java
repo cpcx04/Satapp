@@ -5,10 +5,13 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import triana.salesianos.edu.SataApp.dto.user.AddUser;
+import triana.salesianos.edu.SataApp.dto.user.UserResponse;
 import triana.salesianos.edu.SataApp.exception.User.UserValidationException;
 import triana.salesianos.edu.SataApp.model.UserWorker;
 import triana.salesianos.edu.SataApp.repository.UserWorkerRepository;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -49,5 +52,19 @@ public class UserWorkerService {
             throw new UserValidationException("Usuario ya validado");
         }
     }
+
+    public List<UserResponse> findAllNonValidatedUsers() {
+        List<UserWorker> users = userWorkerRepository.findAll();
+
+        List<UserResponse> nonValidatedUsers = new ArrayList<>();
+        for (UserWorker user : users) {
+            if (!user.isValidated()) {
+                nonValidatedUsers.add(UserResponse.of(user));
+            }
+        }
+
+        return nonValidatedUsers;
+    }
+
 
 }

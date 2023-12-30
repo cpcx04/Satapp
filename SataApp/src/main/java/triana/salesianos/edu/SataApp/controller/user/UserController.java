@@ -27,6 +27,7 @@ import triana.salesianos.edu.SataApp.security.jwt.JwtProvider;
 import triana.salesianos.edu.SataApp.security.jwt.JwtUserResponse;
 import triana.salesianos.edu.SataApp.service.UserWorkerService;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -101,10 +102,51 @@ public class UserController {
                     .body(JwtUserResponse.of(user, token));
         }
     }
-
+    @Operation(summary = "Admin Validation for users")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200 OK", description = "Validation successful", content = {
+                    @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = JwtUserResponse.class)),
+                            examples = @ExampleObject(
+                                    value = """
+                                                    {
+                                                         "id": "3f0190ac-ebef-4fc2-99c9-5d44016da63a",
+                                                         "username": "cristian1",
+                                                         "email": "cristian@example.com",
+                                                         "nombre": "Cristian Garcia",
+                                                         "role": "ROLE_USER",
+                                                         "createdAt": null
+                                                     }
+                                            """
+                            ))
+            }),
+            @ApiResponse(responseCode = "403", description = "ACCESS DENIED"),
+            @ApiResponse(responseCode = "400", description = "User not found")
+    })
     @PutMapping("/users/{uuid}/validate")
     public UserResponse validateAUser(@PathVariable("uuid") UUID uuid) {
         return UserResponse.of(userWorkerService.edit(uuid));
+    }
+
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Gets all user no validated", content = {
+                    @Content(mediaType = "application/json", examples = { @ExampleObject(value = """
+                               
+                            """) }) }),
+            @ApiResponse(responseCode = "400", description = "Unable to find any user", content = @Content)
+
+    }
+
+    )
+    @Operation(summary = "findAll", description = "Find All Users no validated in the database")
+    @GetMapping("/users/no-validated")
+    public ResponseEntity<List<UserResponse>> findAllUsersNoValidated() {
+        List<UserResponse> allNonValidatedUsers = userWorkerService.findAllNonValidatedUsers();
+
+        if (allNonValidatedUsers.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(allNonValidatedUsers);
     }
 
 
