@@ -15,18 +15,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import triana.salesianos.edu.SataApp.dto.user.AddUser;
 import triana.salesianos.edu.SataApp.dto.user.Login;
+import triana.salesianos.edu.SataApp.dto.user.UserResponse;
+import triana.salesianos.edu.SataApp.exception.User.UserValidationException;
 import triana.salesianos.edu.SataApp.model.User;
 import triana.salesianos.edu.SataApp.model.UserWorker;
 import triana.salesianos.edu.SataApp.security.jwt.JwtProvider;
 import triana.salesianos.edu.SataApp.security.jwt.JwtUserResponse;
 import triana.salesianos.edu.SataApp.service.UserWorkerService;
+
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -83,8 +84,9 @@ public class UserController {
     })
     @PostMapping("/auth/login")
     public ResponseEntity<JwtUserResponse> loginUser(@RequestBody Login loginUser) {
-
-        try {
+        if (!userWorkerService.isUserValidated(loginUser.username())) {
+            throw new UserValidationException("Usuario no válido");
+        } else {
             Authentication authentication = authManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             loginUser.username(),
@@ -97,9 +99,12 @@ public class UserController {
 
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body(JwtUserResponse.of(user, token));
-        } catch (AuthenticationException ex) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
+    }
+
+    @PutMapping("/users/{uuid}/validate")
+    public UserResponse validateAUser(@PathVariable("uuid") UUID uuid) {
+        return UserResponse.of(userWorkerService.edit(uuid));
     }
 
 

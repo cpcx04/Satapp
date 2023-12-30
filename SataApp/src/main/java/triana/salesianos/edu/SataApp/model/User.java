@@ -68,13 +68,14 @@ public abstract class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         String role = "ROLE_";
-        if (role=="ADMIN") {
+        if (this.getRole() == Function.ADMIN) {
             role += "ADMIN";
         } else {
             role += "USER";
         }
         return List.of(new SimpleGrantedAuthority(role));
     }
+
     @Override
     public boolean isAccountNonExpired() {
         return accountNonExpired;
