@@ -31,5 +31,4 @@ INSERT INTO "INVENTORY_ITEMS" (id, type_id, description, status, location_id, ad
 
 -- Insertar registros en Ticket
 INSERT INTO Ticket (id, description, status, created_by, assigned_to, related_inventory_item) VALUES ('5fb05a52-eb6d-4d34-9e8d-98e6d01472fc', 'Ticket 1', 'Abierto', '839e2b39-361e-4cc1-866f-f52bd9d812c3', 'c7d3d0ac-3e68-4cd6-8233-df25d5ef95f6', '3f0190ac-ebef-4fc2-99c9-5d44016da63a');
-
 INSERT INTO Ticket (id, description, status, created_by, assigned_to,  related_inventory_item) VALUES ('fb25f398-1363-48d5-a695-4cf0ef67592f', 'Ticket 2', 'En progreso', '839e2b39-361e-4cc1-866f-f52bd9d812c3', 'c7d3d0ac-3e68-4cd6-8233-df25d5ef95f6', '84c21a5b-d4d9-4419-af41-82cb21416856');

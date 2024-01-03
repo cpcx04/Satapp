@@ -8,14 +8,19 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+import triana.salesianos.edu.SataApp.dto.inventory.AddInventoryDto;
 import triana.salesianos.edu.SataApp.dto.inventory.GetInventoryDto;
 import triana.salesianos.edu.SataApp.dto.inventory.GetLocationsDto;
 import triana.salesianos.edu.SataApp.dto.inventory.GetTypeDto;
+import triana.salesianos.edu.SataApp.exception.Inventory.RelatedTicketsException;
+import triana.salesianos.edu.SataApp.model.InventoryItems;
 import triana.salesianos.edu.SataApp.service.InventoryService;
 import triana.salesianos.edu.SataApp.service.LocationService;
 import triana.salesianos.edu.SataApp.service.TypeService;
@@ -67,6 +72,7 @@ public class InventoryController {
     )
     @Operation(summary = "findAll", description = "Find All Items in the database")
     @GetMapping("/inventariable")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<List<GetInventoryDto>> findAllInventoryItems() {
         List<GetInventoryDto> allInventory = inventoryService.findAll();
 
@@ -169,5 +175,74 @@ public class InventoryController {
         }
 
         return ResponseEntity.ok(allTypes);
+    }
+
+
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Creation of a new inventariable", content = {
+                    @Content(mediaType = "application/json", examples = { @ExampleObject(value =
+                            """
+                                            {
+                                                "id": "f917c40e-f0c3-4724-82a6-0bc7a65a5c51",
+                                                "type": "LAPTOP",
+                                                "description": "ASUS-19",
+                                                "status": "Active",
+                                                "location": "Segundo DAM",
+                                                "additionalDetails": "Asus with intel core i7 and a incredible gaming graphics",
+                                                "relatedTickets": []
+                                            }
+                                    """) }) }),
+            @ApiResponse(responseCode = "400", description = "The creation of the inventariable has not been done", content = @Content)
+
+    }
+
+    )
+    @PostMapping("/inventariable")
+    @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "addInventoryItem", description = "Create a new InventoryItem")
+    public ResponseEntity<GetInventoryDto> addInventariable(@Valid @RequestBody AddInventoryDto inventoryDto) {
+        InventoryItems e = inventoryService.newInventariable(inventoryDto);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(GetInventoryDto.of(e));
+    }
+
+
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "The item has been edited", content = {
+                    @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = GetInventoryDto.class)), examples = {
+                            @ExampleObject(value = """
+                   
+                                                         """) }) }),
+            @ApiResponse(responseCode = "404", description = "Any item was found", content = @Content),
+    })
+    @PutMapping("/inventariable/{uuid}")
+    @Operation(summary = "Edit a Item")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<GetInventoryDto> editStation(@PathVariable UUID uuid, @RequestBody @Valid AddInventoryDto e) {
+        InventoryItems inventoryItems = inventoryService.editInventory(uuid, e);
+        if (inventoryItems != null) {
+            GetInventoryDto getInventoryDto = GetInventoryDto.of(inventoryItems);
+            return ResponseEntity.status(HttpStatus.OK).body(getInventoryDto);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "Item delete")
+    })
+    @Operation(summary = "Delete a Inventory Item", description = "Delete a InvetoryItem checking that the item is in the database saved")
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/inventariable/{uuid}")
+    public ResponseEntity<?> deleteItemById(@PathVariable UUID uuid) {
+        InventoryItems inventoryItems = inventoryService.findById(uuid);
+
+        if (inventoryItems.getRelatedTickets() != null && !inventoryItems.getRelatedTickets().isEmpty()) {
+            throw new RelatedTicketsException();
+        }
+
+        inventoryService.delete(uuid);
+        return ResponseEntity.noContent().build();
     }
 }
