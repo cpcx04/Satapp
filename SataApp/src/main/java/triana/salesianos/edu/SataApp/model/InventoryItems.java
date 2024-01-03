@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,5 +38,5 @@ public class InventoryItems {
     private String additionalDetails;
 
     @OneToMany(mappedBy = "relatedInventoryItem", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Ticket> relatedTickets;
+    private List<Ticket> relatedTickets = new ArrayList<>();
 }

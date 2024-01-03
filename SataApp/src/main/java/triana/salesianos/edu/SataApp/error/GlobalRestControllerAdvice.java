@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import triana.salesianos.edu.SataApp.error.impl.ApiValidationSubError;
+import triana.salesianos.edu.SataApp.exception.Inventory.RelatedTicketsException;
 import triana.salesianos.edu.SataApp.exception.User.UserValidationException;
 import triana.salesianos.edu.SataApp.security.errorhandling.JwtTokenException;
 
@@ -48,6 +49,16 @@ public class GlobalRestControllerAdvice extends ResponseEntityExceptionHandler {
         return ErrorResponse.builder(exception, HttpStatus.NOT_FOUND, exception.getMessage())
                 .title("The user has to be validated by a admin")
                 .type(URI.create("https://api.sataapp.com/errors/validation"))
+                .property("date", LocalDateTime.now().format(formatter))
+                .build();
+    }
+    @ExceptionHandler({RelatedTicketsException.class })
+    private static ErrorResponse handleRelatedTicketsException(RelatedTicketsException exception) {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        return ErrorResponse.builder(exception, HttpStatus.NOT_FOUND, exception.getMessage())
+                .title("You can't delete a iventory item with a ticket related,solve it first")
+                .type(URI.create("https://api.sataapp.com/errors/tickets"))
                 .property("date", LocalDateTime.now().format(formatter))
                 .build();
     }
