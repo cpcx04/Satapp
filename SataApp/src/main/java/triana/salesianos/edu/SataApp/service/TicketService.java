@@ -8,6 +8,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import triana.salesianos.edu.SataApp.dto.Ticket.AddTicketDto;
+import triana.salesianos.edu.SataApp.dto.Ticket.GetTicketDto;
+import triana.salesianos.edu.SataApp.dto.inventory.GetInventoryDto;
 import triana.salesianos.edu.SataApp.exception.Ticket.NotOwnerOfTicketException;
 import triana.salesianos.edu.SataApp.model.InventoryItems;
 import triana.salesianos.edu.SataApp.model.Ticket;
@@ -16,6 +18,7 @@ import triana.salesianos.edu.SataApp.repository.InventoryRepository;
 import triana.salesianos.edu.SataApp.repository.TicketRepository;
 import triana.salesianos.edu.SataApp.repository.UserRepository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -125,5 +128,12 @@ public class TicketService {
     private boolean isAdmin(String currentUsername) {
         Optional<User> user = userRepository.findByUsername(currentUsername);
         return user.map(u -> u.getRole().equals("ADMIN")).orElse(false);
+    }
+
+    public List<GetTicketDto> findAll() {
+        return ticketRepository.findAll()
+                .stream()
+                .map(GetTicketDto::of)
+                .toList();
     }
 }

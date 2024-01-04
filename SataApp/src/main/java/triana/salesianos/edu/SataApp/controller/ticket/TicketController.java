@@ -23,6 +23,7 @@ import triana.salesianos.edu.SataApp.model.InventoryItems;
 import triana.salesianos.edu.SataApp.model.Ticket;
 import triana.salesianos.edu.SataApp.service.TicketService;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -97,5 +98,45 @@ public class TicketController {
 
         ticketService.delete(uuid);
         return ResponseEntity.noContent().build();
+    }
+
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Gets all ticket items", content = {
+                    @Content(mediaType = "application/json", examples = { @ExampleObject(value = """
+                            [
+                                {
+                                    "ticketId": "5fb05a52-eb6d-4d34-9e8d-98e6d01472fc",
+                                    "description": "Ticket 1",
+                                    "status": "Abierto",
+                                    "createdByUsername": "El Administrador",
+                                    "assignedTo": "Manuel Perez",
+                                    "relatedInventoryItem": "3f0190ac-ebef-4fc2-99c9-5d44016da63a"
+                                },
+                                {
+                                    "ticketId": "fb25f398-1363-48d5-a695-4cf0ef67592f",
+                                    "description": "Ticket 2",
+                                    "status": "En progreso",
+                                    "createdByUsername": "El Administrador",
+                                    "assignedTo": "Manuel Perez",
+                                    "relatedInventoryItem": "84c21a5b-d4d9-4419-af41-82cb21416856"
+                                }
+                            ]
+                            """) }) }),
+            @ApiResponse(responseCode = "400", description = "Unable to find any ticket", content = @Content)
+
+    }
+
+    )
+    @Operation(summary = "findAll", description = "Find All Ticket in the database")
+    @GetMapping("/ticket")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<GetTicketDto>> findAllTickets() {
+        List<GetTicketDto> allTicket = ticketService.findAll();
+
+        if (allTicket.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(allTicket);
     }
 }
