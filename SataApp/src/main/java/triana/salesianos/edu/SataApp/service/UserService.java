@@ -26,4 +26,9 @@ public class UserService {
     public Optional<User> findByUsername(String currentUsername) {
         return usuarioRepository.findByUsername(currentUsername);
     }
+
+    public boolean isAdmin(String username) {
+        Optional<User> user = usuarioRepository.findByUsername(username);
+        return user.map(u -> u.getRole().equals("ADMIN")).orElse(false);
+    }
 }
