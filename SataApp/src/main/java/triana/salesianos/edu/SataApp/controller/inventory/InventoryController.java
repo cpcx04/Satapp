@@ -212,14 +212,24 @@ public class InventoryController {
             @ApiResponse(responseCode = "200", description = "The item has been edited", content = {
                     @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = GetInventoryDto.class)), examples = {
                             @ExampleObject(value = """
-                   
-                                                         """) }) }),
+                                    {
+                                        "id": "3f0190ac-ebef-4fc2-99c9-5d44016da63a",
+                                        "type": "DESKTOP",
+                                        "description": "Un portatil ligero y versatil, perfecto para movilidad y tareas diarias.",
+                                        "status": "Disponible",
+                                        "location": "Segundo DAM",
+                                        "additionalDetails": "Portatil con procesador Intel Core i7, 16 GB RAM, SSD de 512 GB y pantalla Full HD de 15 pulgadas.",
+                                        "relatedTickets": [
+                                            "5fb05a52-eb6d-4d34-9e8d-98e6d01472fc"
+                                        ]
+                                    }     
+                                                   """) }) }),
             @ApiResponse(responseCode = "404", description = "Any item was found", content = @Content),
     })
     @PutMapping("/inventariable/{uuid}")
     @Operation(summary = "Edit a Item")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<GetInventoryDto> editStation(@PathVariable UUID uuid, @RequestBody @Valid AddInventoryDto e) {
+    public ResponseEntity<GetInventoryDto> editInventory(@PathVariable UUID uuid, @RequestBody @Valid AddInventoryDto e) {
         InventoryItems inventoryItems = inventoryService.editInventory(uuid, e);
         if (inventoryItems != null) {
             GetInventoryDto getInventoryDto = GetInventoryDto.of(inventoryItems);

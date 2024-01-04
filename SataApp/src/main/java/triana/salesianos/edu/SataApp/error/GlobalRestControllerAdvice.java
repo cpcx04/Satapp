@@ -1,6 +1,7 @@
 package triana.salesianos.edu.SataApp.error;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.aspectj.weaver.ast.Not;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -15,6 +16,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import triana.salesianos.edu.SataApp.error.impl.ApiValidationSubError;
 import triana.salesianos.edu.SataApp.exception.Inventory.RelatedTicketsException;
+import triana.salesianos.edu.SataApp.exception.Ticket.NotOwnerOfTicketException;
 import triana.salesianos.edu.SataApp.exception.User.UserValidationException;
 import triana.salesianos.edu.SataApp.security.errorhandling.JwtTokenException;
 
@@ -58,6 +60,17 @@ public class GlobalRestControllerAdvice extends ResponseEntityExceptionHandler {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         return ErrorResponse.builder(exception, HttpStatus.NOT_FOUND, exception.getMessage())
                 .title("You can't delete a iventory item with a ticket related,solve it first")
+                .type(URI.create("https://api.sataapp.com/errors/tickets"))
+                .property("date", LocalDateTime.now().format(formatter))
+                .build();
+    }
+
+    @ExceptionHandler({NotOwnerOfTicketException.class })
+    private static ErrorResponse handleOwnerTicketException(NotOwnerOfTicketException exception) {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        return ErrorResponse.builder(exception, HttpStatus.NOT_FOUND, exception.getMessage())
+                .title("Not Admin of Owner of ticket")
                 .type(URI.create("https://api.sataapp.com/errors/tickets"))
                 .property("date", LocalDateTime.now().format(formatter))
                 .build();
