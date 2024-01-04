@@ -22,4 +22,8 @@ public class UserService {
     public boolean userExists(String username) {
         return usuarioRepository.existsByUsernameIgnoreCase(username);
     }
+
+    public Optional<User> findByUsername(String currentUsername) {
+        return usuarioRepository.findByUsername(currentUsername);
+    }
 }
