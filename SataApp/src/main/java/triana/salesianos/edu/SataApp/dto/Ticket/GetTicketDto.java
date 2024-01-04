@@ -24,4 +24,15 @@ public record GetTicketDto(
         );
 
     }
+
+    public static GetTicketDto fromTicket(Ticket ticket) {
+        return new GetTicketDto(
+                ticket.getId(),
+                ticket.getDescription(),
+                ticket.getStatus(),
+                ticket.getCreatedBy().getFullName(),
+                ticket.getAssignedTo().getFullName(),
+                ticket.getRelatedInventoryItem().getId()
+        );
+    }
 }
