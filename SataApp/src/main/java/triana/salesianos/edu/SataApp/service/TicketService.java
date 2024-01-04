@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import triana.salesianos.edu.SataApp.dto.Ticket.AddTicketDto;
 import triana.salesianos.edu.SataApp.dto.Ticket.GetTicketDto;
+import triana.salesianos.edu.SataApp.dto.Ticket.GetTicketsFromInventory;
 import triana.salesianos.edu.SataApp.dto.inventory.GetInventoryDto;
 import triana.salesianos.edu.SataApp.exception.Ticket.NotOwnerOfTicketException;
 import triana.salesianos.edu.SataApp.model.InventoryItems;
@@ -18,9 +19,11 @@ import triana.salesianos.edu.SataApp.repository.InventoryRepository;
 import triana.salesianos.edu.SataApp.repository.TicketRepository;
 import triana.salesianos.edu.SataApp.repository.UserRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -135,5 +138,18 @@ public class TicketService {
                 .stream()
                 .map(GetTicketDto::of)
                 .toList();
+    }
+
+    public GetTicketsFromInventory findAllTicketsInInventory(UUID uuid) {
+
+        InventoryItems inventoryItem = inventoryRepository.findById(uuid)
+                .orElseThrow(EntityNotFoundException::new);
+
+        List<Ticket> tickets = inventoryItem.getRelatedTickets();
+        List<GetTicketDto> ticketDtos = tickets.stream()
+                .map(GetTicketDto::fromTicket)
+                .collect(Collectors.toList());
+
+        return GetTicketsFromInventory.of(uuid, ticketDtos);
     }
 }

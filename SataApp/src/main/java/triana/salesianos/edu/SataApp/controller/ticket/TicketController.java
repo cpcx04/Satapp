@@ -16,6 +16,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import triana.salesianos.edu.SataApp.dto.Ticket.AddTicketDto;
 import triana.salesianos.edu.SataApp.dto.Ticket.GetTicketDto;
+import triana.salesianos.edu.SataApp.dto.Ticket.GetTicketsFromInventory;
 import triana.salesianos.edu.SataApp.dto.inventory.AddInventoryDto;
 import triana.salesianos.edu.SataApp.dto.inventory.GetInventoryDto;
 import triana.salesianos.edu.SataApp.exception.Inventory.RelatedTicketsException;
@@ -138,5 +139,46 @@ public class TicketController {
         }
 
         return ResponseEntity.ok(allTicket);
+    }
+
+    @Operation(summary = "Gets  the tickets form a inventariable of the database")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "The tickets has been found", content = {
+                    @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = GetTicketsFromInventory.class)), examples = {
+                            @ExampleObject(value = """
+                                    {
+                                        "itemId": "3f0190ac-ebef-4fc2-99c9-5d44016da63a",
+                                        "tickets": [
+                                            {
+                                                "ticketId": "5fb05a52-eb6d-4d34-9e8d-98e6d01472fc",
+                                                "description": "Ticket 1",
+                                                "status": "Abierto",
+                                                "createdByUsername": "El Administrador",
+                                                "assignedTo": "Manuel Perez",
+                                                "relatedInventoryItem": "3f0190ac-ebef-4fc2-99c9-5d44016da63a"
+                                            },
+                                            {
+                                                "ticketId": "48849dcb-f57c-4a80-a2d1-192fff14746e",
+                                                "description": "Ordenador no funciona",
+                                                "status": "Abierto",
+                                                "createdByUsername": "El Administrador",
+                                                "assignedTo": "Luismi Gonzalez",
+                                                "relatedInventoryItem": "3f0190ac-ebef-4fc2-99c9-5d44016da63a"
+                                            }
+                                        ]
+                                    }
+                                                         """) }) }),
+            @ApiResponse(responseCode = "404", description = "Unable to find any tickets with that id.", content = @Content),
+    })
+    @GetMapping("/ticket/inventariable/{uuid}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<GetTicketsFromInventory> findTicketsById(@PathVariable UUID uuid) {
+        GetTicketsFromInventory ticketsFromInventory = ticketService.findAllTicketsInInventory(uuid);
+
+        if (ticketsFromInventory.tickets().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        return ResponseEntity.ok(ticketsFromInventory);
     }
 }
