@@ -1,6 +1,7 @@
 package triana.salesianos.edu.SataApp.service;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.core.Authentication;
@@ -13,6 +14,7 @@ import triana.salesianos.edu.SataApp.model.Ticket;
 import triana.salesianos.edu.SataApp.model.User;
 import triana.salesianos.edu.SataApp.repository.InventoryRepository;
 import triana.salesianos.edu.SataApp.repository.TicketRepository;
+import triana.salesianos.edu.SataApp.repository.UserRepository;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -24,6 +26,7 @@ public class TicketService {
     private final TicketRepository ticketRepository;
     private final UserService userService;
     private final InventoryRepository inventoryRepository;
+    private final UserRepository userRepository;
 
 
     public Ticket newTicket(AddTicketDto ticketDto) {
@@ -93,5 +96,34 @@ public class TicketService {
             return ticketRepository.save(ticket);
         }
         return null;
+    }
+
+    public Ticket findById(UUID uuid) {
+        return ticketRepository.findById(uuid).orElseThrow(()->new EntityNotFoundException("Inventory item with ID " + uuid + " not found"));
+    }
+
+    @Transactional
+    public void delete(UUID uuid) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName();
+
+        Optional<Ticket> optionalTicket = ticketRepository.findById(uuid);
+
+        if (optionalTicket.isPresent()) {
+            Ticket ticket = optionalTicket.get();
+
+            if (isAdmin(currentUsername) || ticket.getCreatedBy().getUsername().equals(currentUsername)) {
+                ticketRepository.delete(ticket);
+            } else {
+                throw new NotOwnerOfTicketException("User is not the owner of the ticket and is not an admin.");
+            }
+        } else {
+            throw new EntityNotFoundException("Ticket not found");
+        }
+    }
+
+    private boolean isAdmin(String currentUsername) {
+        Optional<User> user = userRepository.findByUsername(currentUsername);
+        return user.map(u -> u.getRole().equals("ADMIN")).orElse(false);
     }
 }

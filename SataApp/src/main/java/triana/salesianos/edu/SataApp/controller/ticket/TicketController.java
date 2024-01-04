@@ -18,6 +18,7 @@ import triana.salesianos.edu.SataApp.dto.Ticket.AddTicketDto;
 import triana.salesianos.edu.SataApp.dto.Ticket.GetTicketDto;
 import triana.salesianos.edu.SataApp.dto.inventory.AddInventoryDto;
 import triana.salesianos.edu.SataApp.dto.inventory.GetInventoryDto;
+import triana.salesianos.edu.SataApp.exception.Inventory.RelatedTicketsException;
 import triana.salesianos.edu.SataApp.model.InventoryItems;
 import triana.salesianos.edu.SataApp.model.Ticket;
 import triana.salesianos.edu.SataApp.service.TicketService;
@@ -61,8 +62,15 @@ public class TicketController {
             @ApiResponse(responseCode = "200", description = "The ticket has been edited", content = {
                     @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = GetTicketDto.class)), examples = {
                             @ExampleObject(value = """
-                                 
-                                                   """) }) }),
+                                                   {
+                                                    "ticketId": "5fb05a52-eb6d-4d34-9e8d-98e6d01472fc",
+                                                    "description": "Ticket 1",
+                                                    "status": "Abierto",
+                                                    "createdByUsername": "El Administrador",
+                                                    "assignedTo": "Luismi Gonzalez",
+                                                    "relatedInventoryItem": "3f0190ac-ebef-4fc2-99c9-5d44016da63a"
+                                                    }
+                                                  """) }) }),
             @ApiResponse(responseCode = "404", description = "Any ticket was found", content = @Content),
     })
     @PutMapping("/ticket/{uuid}")
@@ -76,5 +84,18 @@ public class TicketController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+    }
+
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "Ticket delete")
+    })
+    @Operation(summary = "Delete a Inventory Item", description = "Delete a Ticket checking that the item is in the database saved")
+    @PreAuthorize("isAuthenticated()")
+    @DeleteMapping("/ticket/{uuid}")
+    public ResponseEntity<?> deleteTicketById(@PathVariable UUID uuid) {
+        Ticket ticket = ticketService.findById(uuid);
+
+        ticketService.delete(uuid);
+        return ResponseEntity.noContent().build();
     }
 }
