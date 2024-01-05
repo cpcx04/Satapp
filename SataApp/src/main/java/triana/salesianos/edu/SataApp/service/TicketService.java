@@ -152,4 +152,10 @@ public class TicketService {
 
         return GetTicketsFromInventory.of(uuid, ticketDtos);
     }
+
+    public List<GetTicketDto> findAllAsignedTickets() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName();
+        return ticketRepository.findAllTicketsAssignedToUser(currentUsername);
+    }
 }
