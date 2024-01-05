@@ -17,7 +17,7 @@ import java.util.UUID;
 @ToString
 @NoArgsConstructor
 @SuperBuilder
-public class UserWorker extends User{
+public class UserWorker extends Users {
 
     private boolean jefe;
 
