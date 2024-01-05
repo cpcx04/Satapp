@@ -103,6 +103,23 @@ public class TicketService {
         }
         return null;
     }
+    public Ticket editTicketToAssignated(UUID uuid, AddTicketDto e) {
+
+
+        Optional<Ticket> optionalTicket = ticketRepository.findById(uuid);
+
+        if (optionalTicket.isPresent()) {
+            Ticket ticket = optionalTicket.get();
+
+            if (e.assignedTo()!= null) {
+                Optional<User> assignedToUser = userService.findByUsername(e.assignedTo());
+                assignedToUser.ifPresent(ticket::setAssignedTo);
+            }
+
+            return ticketRepository.save(ticket);
+        }
+        return null;
+    }
 
     public Ticket findById(UUID uuid) {
         return ticketRepository.findById(uuid).orElseThrow(()->new EntityNotFoundException("Inventory item with ID " + uuid + " not found"));

@@ -225,4 +225,24 @@ public class TicketController {
         }
         return  ResponseEntity.ok(assignedTickets);
     }
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "The ticket has been edited", content = {
+                    @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = GetTicketDto.class)), examples = {
+                            @ExampleObject(value = """
+                                                  
+                                                  """) }) }),
+            @ApiResponse(responseCode = "404", description = "Any ticket was found", content = @Content),
+    })
+    @PutMapping("/ticket/{uuid}/asignar")
+    @Operation(summary = "Edit a ticket")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<GetTicketDto> assignToTicket(@PathVariable UUID uuid, @RequestBody @Valid AddTicketDto e) {
+        Ticket ticket = ticketService.editTicketToAssignated(uuid, e);
+        if (ticket != null) {
+            GetTicketDto getTicketDto = GetTicketDto.of(ticket);
+            return ResponseEntity.status(HttpStatus.OK).body(getTicketDto);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 }
