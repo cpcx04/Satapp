@@ -175,4 +175,19 @@ public class TicketService {
         String currentUsername = authentication.getName();
         return ticketRepository.findAllTicketsAssignedToUser(currentUsername);
     }
+
+    public Ticket editStatusTicket(UUID uuid, AddTicketDto e) {
+        Optional<Ticket> optionalTicket = ticketRepository.findById(uuid);
+
+        if (optionalTicket.isPresent()) {
+            Ticket ticket = optionalTicket.get();
+
+            if (e.status() != null) {
+                ticket.setStatus(e.status());
+            }
+
+            return ticketRepository.save(ticket);
+        }
+        return null;
+    }
 }
