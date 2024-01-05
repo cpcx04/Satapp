@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
-import triana.salesianos.edu.SataApp.model.User;
+import triana.salesianos.edu.SataApp.model.Users;
 import triana.salesianos.edu.SataApp.security.errorhandling.JwtTokenException;
 import triana.salesianos.edu.SataApp.service.UserService;
 
@@ -47,10 +47,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             if (StringUtils.hasText(token) && jwtProvider.validateToken(token)) {
                 UUID userId = jwtProvider.getUserIdFromJwtToken(token);
 
-                Optional<User> result = userService.findById(userId);
+                Optional<Users> result = userService.findById(userId);
 
                 if (result.isPresent()) {
-                    User user = result.get();
+                    Users user = result.get();
 
                     UsernamePasswordAuthenticationToken authentication =
                             new UsernamePasswordAuthenticationToken(

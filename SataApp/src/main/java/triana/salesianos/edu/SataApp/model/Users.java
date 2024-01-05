@@ -20,13 +20,12 @@ import java.util.UUID;
 @SuperBuilder
 @EntityListeners(AuditingEntityListener.class)
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "user_entity")
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class User implements UserDetails {
+public abstract class Users implements UserDetails {
 
     @Id
     @GeneratedValue(generator = "UUID")

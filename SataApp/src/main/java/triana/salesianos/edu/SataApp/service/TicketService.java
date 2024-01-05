@@ -10,16 +10,14 @@ import org.springframework.stereotype.Service;
 import triana.salesianos.edu.SataApp.dto.Ticket.AddTicketDto;
 import triana.salesianos.edu.SataApp.dto.Ticket.GetTicketDto;
 import triana.salesianos.edu.SataApp.dto.Ticket.GetTicketsFromInventory;
-import triana.salesianos.edu.SataApp.dto.inventory.GetInventoryDto;
 import triana.salesianos.edu.SataApp.exception.Ticket.NotOwnerOfTicketException;
 import triana.salesianos.edu.SataApp.model.InventoryItems;
 import triana.salesianos.edu.SataApp.model.Ticket;
-import triana.salesianos.edu.SataApp.model.User;
+import triana.salesianos.edu.SataApp.model.Users;
 import triana.salesianos.edu.SataApp.repository.InventoryRepository;
 import triana.salesianos.edu.SataApp.repository.TicketRepository;
 import triana.salesianos.edu.SataApp.repository.UserRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -43,15 +41,15 @@ public class TicketService {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = authentication.getName();
-        Optional<User> optionalUser = userService.findByUsername(currentUsername);
+        Optional<Users> optionalUser = userService.findByUsername(currentUsername);
         if (optionalUser.isPresent()) {
-            User createdBy = optionalUser.get();
+            Users createdBy = optionalUser.get();
             ticket.setCreatedBy(createdBy);
         } else {
             throw new EntityNotFoundException();
         }
 
-        Optional<User> assignedTo = userService.findByUsername(ticketDto.assignedTo());
+        Optional<Users> assignedTo = userService.findByUsername(ticketDto.assignedTo());
         if (assignedTo.isPresent()) {
             ticket.setAssignedTo(assignedTo.get());
         } else {
@@ -90,7 +88,7 @@ public class TicketService {
             }
 
             if (e.assignedTo()!= null) {
-                Optional<User> assignedToUser = userService.findByUsername(e.assignedTo());
+                Optional<Users> assignedToUser = userService.findByUsername(e.assignedTo());
                 assignedToUser.ifPresent(ticket::setAssignedTo);
             }
 
@@ -112,7 +110,7 @@ public class TicketService {
             Ticket ticket = optionalTicket.get();
 
             if (e.assignedTo()!= null) {
-                Optional<User> assignedToUser = userService.findByUsername(e.assignedTo());
+                Optional<Users> assignedToUser = userService.findByUsername(e.assignedTo());
                 assignedToUser.ifPresent(ticket::setAssignedTo);
             }
 
@@ -146,7 +144,7 @@ public class TicketService {
     }
 
     private boolean isAdmin(String currentUsername) {
-        Optional<User> user = userRepository.findByUsername(currentUsername);
+        Optional<Users> user = userRepository.findByUsername(currentUsername);
         return user.map(u -> u.getRole().equals("ADMIN")).orElse(false);
     }
 

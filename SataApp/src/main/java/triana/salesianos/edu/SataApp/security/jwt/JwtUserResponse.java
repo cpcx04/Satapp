@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import triana.salesianos.edu.SataApp.dto.user.UserResponse;
-import triana.salesianos.edu.SataApp.model.User;
+import triana.salesianos.edu.SataApp.model.Users;
 
 @Getter
 @Setter
@@ -29,7 +29,7 @@ public class JwtUserResponse extends UserResponse {
         role = userResponse.getRole();
     }
 
-    public static JwtUserResponse of (User user, String token) {
+    public static JwtUserResponse of (Users user, String token) {
         JwtUserResponse result = new JwtUserResponse(UserResponse.of(user));
         result.setToken(token);
         return result;

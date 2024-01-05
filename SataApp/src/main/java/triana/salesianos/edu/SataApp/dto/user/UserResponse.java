@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
-import triana.salesianos.edu.SataApp.model.User;
+import triana.salesianos.edu.SataApp.model.Users;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -26,7 +26,7 @@ public class UserResponse {
     public static String getRole(Collection<? extends GrantedAuthority> roleList){
         return roleList.stream().map(GrantedAuthority::getAuthority).toList().get(0);
     }
-    public static UserResponse of(User user){
+    public static UserResponse of(Users user){
 
         return UserResponse.builder()
                 .id(user.getId().toString())

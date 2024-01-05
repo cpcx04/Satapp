@@ -98,6 +98,7 @@ public class SecurityConfig {
                                                 antMatcher("/h2-console/**"),
                                                 antMatcher("/auth/**"),
                                                 antMatcher("/swagger/**"),
+                                                antMatcher("/swagger-ui-miapi.html"),
                                                 antMatcher("/swagger-ui/**"),
                                                 antMatcher("/api-docs"),
                                                 antMatcher("/error")));

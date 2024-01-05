@@ -1,0 +1,3 @@
+--Admin Account
+INSERT INTO Users (id, username, full_name, password, email, validated, role, ACCOUNT_NON_EXPIRED, ACCOUNT_NON_LOCKED, CREDENTIALS_NON_EXPIRED, ENABLED) VALUES ('839e2b39-361e-4cc1-866f-f52bd9d812c3', 'admin1', 'El Administrador', '{bcrypt}$2a$10$O9gBlJqfCKUMVkDYxYs/puwiXpuVfWTMTBjql6x07T8bl8yXXBSi.', 'admin@gmail.com', true, 'ADMIN', true, true, true, true);
+INSERT INTO User_worker (id,jefe) VALUES ('839e2b39-361e-4cc1-866f-f52bd9d812c3',true);

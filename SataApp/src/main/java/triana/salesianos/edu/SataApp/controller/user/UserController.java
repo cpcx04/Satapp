@@ -21,7 +21,7 @@ import triana.salesianos.edu.SataApp.dto.user.AddUser;
 import triana.salesianos.edu.SataApp.dto.user.Login;
 import triana.salesianos.edu.SataApp.dto.user.UserResponse;
 import triana.salesianos.edu.SataApp.exception.User.UserValidationException;
-import triana.salesianos.edu.SataApp.model.User;
+import triana.salesianos.edu.SataApp.model.Users;
 import triana.salesianos.edu.SataApp.model.UserWorker;
 import triana.salesianos.edu.SataApp.security.jwt.JwtProvider;
 import triana.salesianos.edu.SataApp.security.jwt.JwtUserResponse;
@@ -96,7 +96,7 @@ public class UserController {
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
             String token = jwtProvider.generateToken(authentication);
-            User user = (User) authentication.getPrincipal();
+            Users user = (Users) authentication.getPrincipal();
 
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body(JwtUserResponse.of(user, token));

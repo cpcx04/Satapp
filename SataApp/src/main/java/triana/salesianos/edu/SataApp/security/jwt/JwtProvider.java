@@ -9,7 +9,7 @@ import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-import triana.salesianos.edu.SataApp.model.User;
+import triana.salesianos.edu.SataApp.model.Users;
 import triana.salesianos.edu.SataApp.security.errorhandling.JwtTokenException;
 
 import javax.crypto.SecretKey;
@@ -51,13 +51,13 @@ public class JwtProvider {
 
     public String generateToken(Authentication authentication) {
 
-        User user = (User) authentication.getPrincipal();
+        Users user = (Users) authentication.getPrincipal();
 
         return generateToken(user);
 
     }
 
-    public String generateToken(User user) {
+    public String generateToken(Users user) {
         Date tokenExpirationDateTime =
                 Date.from(
                         LocalDateTime
