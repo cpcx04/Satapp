@@ -181,4 +181,48 @@ public class TicketController {
 
         return ResponseEntity.ok(ticketsFromInventory);
     }
+
+    @Operation(summary = "Gets the logged user tickets form a inventariable of the database")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "The tickets has been found", content = {
+                    @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = GetTicketDto.class)), examples = {
+                            @ExampleObject(value = """
+                                    [
+                                        {
+                                            "ticketId": "2eb69eaa-3f5e-4f3f-b6dc-751ff8caf66d",
+                                            "description": "Ordenador no funciona",
+                                            "status": "Abierto",
+                                            "createdByUsername": "El Administrador",
+                                            "assignedTo": "Cristian Garcia",
+                                            "relatedInventoryItem": "3f0190ac-ebef-4fc2-99c9-5d44016da63a"
+                                        },
+                                        {
+                                            "ticketId": "75a2bc88-6aeb-4174-8419-6e58e2ef5088",
+                                            "description": "Ordenador no funciona",
+                                            "status": "Abierto",
+                                            "createdByUsername": "Cristian Garcia",
+                                            "assignedTo": "Cristian Garcia",
+                                            "relatedInventoryItem": "3f0190ac-ebef-4fc2-99c9-5d44016da63a"
+                                        },
+                                        {
+                                            "ticketId": "519e68a1-2823-4c9a-817f-5f061e1875d8",
+                                            "description": "Ordenador no funciona",
+                                            "status": "Abierto",
+                                            "createdByUsername": "Cristian Garcia",
+                                            "assignedTo": "Cristian Garcia",
+                                            "relatedInventoryItem": "3f0190ac-ebef-4fc2-99c9-5d44016da63a"
+                                        }
+                                    ]
+                                                         """) }) }),
+            @ApiResponse(responseCode = "404", description = "Unable to find any tickets in this user.", content = @Content),
+    })
+    @GetMapping("/ticket/asignados/me")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<List<GetTicketDto>>findAssignedTickets(){
+        List<GetTicketDto> assignedTickets = ticketService.findAllAsignedTickets();
+        if(assignedTickets.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return  ResponseEntity.ok(assignedTickets);
+    }
 }
