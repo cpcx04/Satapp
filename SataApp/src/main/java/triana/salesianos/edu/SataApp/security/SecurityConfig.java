@@ -97,10 +97,12 @@ public class SecurityConfig {
                                                 antMatcher("/auth/login"),
                                                 antMatcher("/h2-console/**"),
                                                 antMatcher("/auth/**"),
+                                                antMatcher("/auth/**"),
                                                 antMatcher("/swagger/**"),
-                                                antMatcher("/swagger-ui-miapi.html"),
                                                 antMatcher("/swagger-ui/**"),
+                                                antMatcher("/v3/api-docs/**"),
                                                 antMatcher("/api-docs"),
-                                                antMatcher("/error")));
+                                                antMatcher("/error")
+                                ));
         }
 }

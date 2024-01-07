@@ -1,0 +1,505 @@
+{
+	"info": {
+		"_postman_id": "3b79b572-f3b3-4a47-bebe-0b0538ff8d4a",
+		"name": "SataApp-CristianPulidoCabello",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "30052620"
+	},
+	"item": [
+		{
+			"name": "wAuth",
+			"item": [
+				{
+					"name": "Admin",
+					"item": [
+						{
+							"name": "User",
+							"item": [
+								{
+									"name": "ValidationUsers",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": {
+												"token": "{{token}}"
+											}
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{LOCAL_HOST}}/users/8b6932a7-aeed-4b4c-bc95-98b9a6817851/validate"
+									},
+									"response": []
+								},
+								{
+									"name": "noValidatedUserList",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": {
+												"token": "{{token}}"
+											}
+										},
+										"method": "GET",
+										"header": [],
+										"url": "{{LOCAL_HOST}}/users/no-validated"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Inventory",
+							"item": [
+								{
+									"name": "AddIventariable",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": {
+												"token": "{{token}}"
+											}
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"type\": \"LAPTOP\",\r\n  \"description\": \"ASUS- laptop for gamers\",\r\n  \"status\": \"Active\",\r\n  \"location\": \"Segundo DAM\",\r\n  \"additionalDetails\": \"Asus with intel core i7 and a incredible gaming graphics\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{LOCAL_HOST}}/inventariable"
+									},
+									"response": []
+								},
+								{
+									"name": "editInvetariable",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": {
+												"token": "{{token}}"
+											}
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"location\": \"Segundo DAM\",\r\n    \"type\":\"DESKTOP\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{LOCAL_HOST}}/inventariable/3f0190ac-ebef-4fc2-99c9-5d44016da63a"
+									},
+									"response": []
+								},
+								{
+									"name": "deleteItem",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": {
+												"token": "{{token}}"
+											}
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": "{{LOCAL_HOST}}/inventariable/3f0190ac-ebef-4fc2-99c9-5d44016da63a"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Ticket",
+							"item": [
+								{
+									"name": "getTickets",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": {
+												"token": "{{token}}"
+											}
+										},
+										"method": "GET",
+										"header": [],
+										"url": "{{LOCAL_HOST}}/ticket"
+									},
+									"response": []
+								},
+								{
+									"name": "getTicketsFromInventariable",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": {
+												"token": "{{token}}"
+											}
+										},
+										"method": "GET",
+										"header": [],
+										"url": "{{LOCAL_HOST}}/ticket/inventariable/3f0190ac-ebef-4fc2-99c9-5d44016da63a"
+									},
+									"response": []
+								},
+								{
+									"name": "assignTicket",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": {
+												"token": "{{token}}"
+											}
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"assignedTo\": \"cristian1\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{LOCAL_HOST}}/ticket/5fb05a52-eb6d-4d34-9e8d-98e6d01472fc/asignar"
+									},
+									"response": []
+								},
+								{
+									"name": "editStatus",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": {
+												"token": "{{token}}"
+											}
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"status\" : \"Closed\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{LOCAL_HOST}}/ticket/fb25f398-1363-48d5-a695-4cf0ef67592f/estado"
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Worker",
+					"item": [
+						{
+							"name": "Type",
+							"item": [
+								{
+									"name": "getTypes",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": {
+												"token": "{{token}}"
+											}
+										},
+										"method": "GET",
+										"header": [],
+										"url": "{{LOCAL_HOST}}/inventariable/tipos"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Locations",
+							"item": [
+								{
+									"name": "getLocations",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": {
+												"token": "{{token}}"
+											}
+										},
+										"method": "GET",
+										"header": [],
+										"url": "{{LOCAL_HOST}}/inventariable/ubicaciones"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Inventary",
+							"item": [
+								{
+									"name": "getInventoryItems",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": {
+												"token": "{{token}}"
+											}
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{LOCAL_HOST}}/inventariable"
+									},
+									"response": []
+								},
+								{
+									"name": "getItemById",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": {
+												"token": "{{token}}"
+											}
+										},
+										"method": "GET",
+										"header": [],
+										"url": "{{LOCAL_HOST}}/inventariable/3f0190ac-ebef-4fc2-99c9-5d44016da63a"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Ticket",
+							"item": [
+								{
+									"name": "newTicket",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": {
+												"token": "{{token}}"
+											}
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"description\": \"Ordenador no funciona\",\r\n  \"status\": \"Abierto\",\r\n  \"assignedTo\": \"cristian1\",\r\n  \"relatedInventoryItem\": \"3f0190ac-ebef-4fc2-99c9-5d44016da63a\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{LOCAL_HOST}}/ticket"
+									},
+									"response": []
+								},
+								{
+									"name": "editTicket",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": {
+												"token": "{{token}}"
+											}
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"assignedTo\": \"luismi3\",\r\n    \"description\": \"Solucionar errores de Software\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{LOCAL_HOST}}/ticket/5fb05a52-eb6d-4d34-9e8d-98e6d01472fc"
+									},
+									"response": []
+								},
+								{
+									"name": "deleteTicket",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": {
+												"token": "{{token}}"
+											}
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": "{{LOCAL_HOST}}/ticket/5fb05a52-eb6d-4d34-9e8d-98e6d01472fc"
+									},
+									"response": []
+								},
+								{
+									"name": "getAssignedTickets",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": {
+												"token": "{{token}}"
+											}
+										},
+										"method": "GET",
+										"header": [],
+										"url": "{{LOCAL_HOST}}/ticket/asignados/me"
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "woAuth",
+			"item": [
+				{
+					"name": "newUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"cristian\",\r\n    \"fullName\": \"Cristian Pulido\",\r\n    \"password\" : \"cristian\",\r\n    \"verifyPassword\" : \"cristian\",\r\n    \"email\": \"cristian@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{LOCAL_HOST}}/auth/register"
+					},
+					"response": []
+				},
+				{
+					"name": "loginUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var json = pm.response.json();\r",
+									"pm.collectionVariables.set(\"token\", json.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"cristian1\",\r\n    \"password\" : \"cristian\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{LOCAL_HOST}}/auth/login"
+					},
+					"response": []
+				},
+				{
+					"name": "loginAsAdmin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var json = pm.response.json();\r",
+									"pm.collectionVariables.set(\"token\", json.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin1\",\r\n    \"password\" : \"admin1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{LOCAL_HOST}}/auth/login"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "LOCAL_HOST",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
