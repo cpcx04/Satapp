@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "3b79b572-f3b3-4a47-bebe-0b0538ff8d4a",
 		"name": "SataApp-CristianPulidoCabello",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "30052620"
 	},
 	"item": [
@@ -20,13 +20,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{token}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{token}}"
+											}
 										},
 										"method": "PUT",
 										"header": [],
@@ -39,17 +35,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{LOCAL_HOST}}/users/8b6932a7-aeed-4b4c-bc95-98b9a6817851/validate",
-											"host": [
-												"{{LOCAL_HOST}}"
-											],
-											"path": [
-												"users",
-												"8b6932a7-aeed-4b4c-bc95-98b9a6817851",
-												"validate"
-											]
-										}
+										"url": "{{LOCAL_HOST}}/users/8b6932a7-aeed-4b4c-bc95-98b9a6817851/validate"
 									},
 									"response": []
 								},
@@ -58,26 +44,13 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{token}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{token}}"
+											}
 										},
 										"method": "GET",
 										"header": [],
-										"url": {
-											"raw": "{{LOCAL_HOST}}/users/no-validated",
-											"host": [
-												"{{LOCAL_HOST}}"
-											],
-											"path": [
-												"users",
-												"no-validated"
-											]
-										}
+										"url": "{{LOCAL_HOST}}/users/no-validated"
 									},
 									"response": []
 								}
@@ -91,13 +64,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{token}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{token}}"
+											}
 										},
 										"method": "POST",
 										"header": [],
@@ -110,15 +79,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{LOCAL_HOST}}/inventariable",
-											"host": [
-												"{{LOCAL_HOST}}"
-											],
-											"path": [
-												"inventariable"
-											]
-										}
+										"url": "{{LOCAL_HOST}}/inventariable"
 									},
 									"response": []
 								},
@@ -127,13 +88,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{token}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{token}}"
+											}
 										},
 										"method": "PUT",
 										"header": [],
@@ -146,16 +103,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{LOCAL_HOST}}/inventariable/3f0190ac-ebef-4fc2-99c9-5d44016da63a",
-											"host": [
-												"{{LOCAL_HOST}}"
-											],
-											"path": [
-												"inventariable",
-												"3f0190ac-ebef-4fc2-99c9-5d44016da63a"
-											]
-										}
+										"url": "{{LOCAL_HOST}}/inventariable/3f0190ac-ebef-4fc2-99c9-5d44016da63a"
 									},
 									"response": []
 								},
@@ -164,26 +112,13 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{token}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{token}}"
+											}
 										},
 										"method": "DELETE",
 										"header": [],
-										"url": {
-											"raw": "{{LOCAL_HOST}}/inventariable/3f0190ac-ebef-4fc2-99c9-5d44016da63a",
-											"host": [
-												"{{LOCAL_HOST}}"
-											],
-											"path": [
-												"inventariable",
-												"3f0190ac-ebef-4fc2-99c9-5d44016da63a"
-											]
-										}
+										"url": "{{LOCAL_HOST}}/inventariable/3f0190ac-ebef-4fc2-99c9-5d44016da63a"
 									},
 									"response": []
 								}
@@ -197,25 +132,13 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{token}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{token}}"
+											}
 										},
 										"method": "GET",
 										"header": [],
-										"url": {
-											"raw": "{{LOCAL_HOST}}/ticket",
-											"host": [
-												"{{LOCAL_HOST}}"
-											],
-											"path": [
-												"ticket"
-											]
-										}
+										"url": "{{LOCAL_HOST}}/ticket"
 									},
 									"response": []
 								},
@@ -224,27 +147,13 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{token}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{token}}"
+											}
 										},
 										"method": "GET",
 										"header": [],
-										"url": {
-											"raw": "{{LOCAL_HOST}}/ticket/inventariable/3f0190ac-ebef-4fc2-99c9-5d44016da63a",
-											"host": [
-												"{{LOCAL_HOST}}"
-											],
-											"path": [
-												"ticket",
-												"inventariable",
-												"3f0190ac-ebef-4fc2-99c9-5d44016da63a"
-											]
-										}
+										"url": "{{LOCAL_HOST}}/ticket/inventariable/3f0190ac-ebef-4fc2-99c9-5d44016da63a"
 									},
 									"response": []
 								},
@@ -253,13 +162,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{token}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{token}}"
+											}
 										},
 										"method": "PUT",
 										"header": [],
@@ -272,17 +177,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{LOCAL_HOST}}/ticket/5fb05a52-eb6d-4d34-9e8d-98e6d01472fc/asignar",
-											"host": [
-												"{{LOCAL_HOST}}"
-											],
-											"path": [
-												"ticket",
-												"5fb05a52-eb6d-4d34-9e8d-98e6d01472fc",
-												"asignar"
-											]
-										}
+										"url": "{{LOCAL_HOST}}/ticket/5fb05a52-eb6d-4d34-9e8d-98e6d01472fc/asignar"
 									},
 									"response": []
 								},
@@ -291,13 +186,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{token}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{token}}"
+											}
 										},
 										"method": "PUT",
 										"header": [],
@@ -310,17 +201,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{LOCAL_HOST}}/ticket/5fb05a52-eb6d-4d34-9e8d-98e6d01472fc/estado",
-											"host": [
-												"{{LOCAL_HOST}}"
-											],
-											"path": [
-												"ticket",
-												"5fb05a52-eb6d-4d34-9e8d-98e6d01472fc",
-												"estado"
-											]
-										}
+										"url": "{{LOCAL_HOST}}/ticket/fb25f398-1363-48d5-a695-4cf0ef67592f/estado"
 									},
 									"response": []
 								}
@@ -339,26 +220,13 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{token}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{token}}"
+											}
 										},
 										"method": "GET",
 										"header": [],
-										"url": {
-											"raw": "{{LOCAL_HOST}}/inventariable/tipos",
-											"host": [
-												"{{LOCAL_HOST}}"
-											],
-											"path": [
-												"inventariable",
-												"tipos"
-											]
-										}
+										"url": "{{LOCAL_HOST}}/inventariable/tipos"
 									},
 									"response": []
 								}
@@ -372,26 +240,13 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{token}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{token}}"
+											}
 										},
 										"method": "GET",
 										"header": [],
-										"url": {
-											"raw": "{{LOCAL_HOST}}/inventariable/ubicaciones",
-											"host": [
-												"{{LOCAL_HOST}}"
-											],
-											"path": [
-												"inventariable",
-												"ubicaciones"
-											]
-										}
+										"url": "{{LOCAL_HOST}}/inventariable/ubicaciones"
 									},
 									"response": []
 								}
@@ -408,13 +263,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{token}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{token}}"
+											}
 										},
 										"method": "GET",
 										"header": [],
@@ -427,15 +278,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{LOCAL_HOST}}/inventariable",
-											"host": [
-												"{{LOCAL_HOST}}"
-											],
-											"path": [
-												"inventariable"
-											]
-										}
+										"url": "{{LOCAL_HOST}}/inventariable"
 									},
 									"response": []
 								},
@@ -444,26 +287,13 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{token}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{token}}"
+											}
 										},
 										"method": "GET",
 										"header": [],
-										"url": {
-											"raw": "{{LOCAL_HOST}}/inventariable/3f0190ac-ebef-4fc2-99c9-5d44016da63a",
-											"host": [
-												"{{LOCAL_HOST}}"
-											],
-											"path": [
-												"inventariable",
-												"3f0190ac-ebef-4fc2-99c9-5d44016da63a"
-											]
-										}
+										"url": "{{LOCAL_HOST}}/inventariable/3f0190ac-ebef-4fc2-99c9-5d44016da63a"
 									},
 									"response": []
 								}
@@ -477,13 +307,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{token}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{token}}"
+											}
 										},
 										"method": "POST",
 										"header": [],
@@ -496,15 +322,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{LOCAL_HOST}}/ticket",
-											"host": [
-												"{{LOCAL_HOST}}"
-											],
-											"path": [
-												"ticket"
-											]
-										}
+										"url": "{{LOCAL_HOST}}/ticket"
 									},
 									"response": []
 								},
@@ -513,13 +331,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{token}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{token}}"
+											}
 										},
 										"method": "PUT",
 										"header": [],
@@ -532,16 +346,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{LOCAL_HOST}}/ticket/5fb05a52-eb6d-4d34-9e8d-98e6d01472fc",
-											"host": [
-												"{{LOCAL_HOST}}"
-											],
-											"path": [
-												"ticket",
-												"5fb05a52-eb6d-4d34-9e8d-98e6d01472fc"
-											]
-										}
+										"url": "{{LOCAL_HOST}}/ticket/5fb05a52-eb6d-4d34-9e8d-98e6d01472fc"
 									},
 									"response": []
 								},
@@ -550,26 +355,13 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{token}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{token}}"
+											}
 										},
 										"method": "DELETE",
 										"header": [],
-										"url": {
-											"raw": "{{LOCAL_HOST}}/ticket/5fb05a52-eb6d-4d34-9e8d-98e6d01472fc",
-											"host": [
-												"{{LOCAL_HOST}}"
-											],
-											"path": [
-												"ticket",
-												"5fb05a52-eb6d-4d34-9e8d-98e6d01472fc"
-											]
-										}
+										"url": "{{LOCAL_HOST}}/ticket/5fb05a52-eb6d-4d34-9e8d-98e6d01472fc"
 									},
 									"response": []
 								},
@@ -578,27 +370,13 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{token}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{token}}"
+											}
 										},
 										"method": "GET",
 										"header": [],
-										"url": {
-											"raw": "{{LOCAL_HOST}}/ticket/asignados/me",
-											"host": [
-												"{{LOCAL_HOST}}"
-											],
-											"path": [
-												"ticket",
-												"asignados",
-												"me"
-											]
-										}
+										"url": "{{LOCAL_HOST}}/ticket/asignados/me"
 									},
 									"response": []
 								}
@@ -625,16 +403,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{LOCAL_HOST}}/auth/register",
-							"host": [
-								"{{LOCAL_HOST}}"
-							],
-							"path": [
-								"auth",
-								"register"
-							]
-						}
+						"url": "{{LOCAL_HOST}}/auth/register"
 					},
 					"response": []
 				},
@@ -664,16 +433,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{LOCAL_HOST}}/auth/login",
-							"host": [
-								"{{LOCAL_HOST}}"
-							],
-							"path": [
-								"auth",
-								"login"
-							]
-						}
+						"url": "{{LOCAL_HOST}}/auth/login"
 					},
 					"response": []
 				},
@@ -703,16 +463,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{LOCAL_HOST}}/auth/login",
-							"host": [
-								"{{LOCAL_HOST}}"
-							],
-							"path": [
-								"auth",
-								"login"
-							]
-						}
+						"url": "{{LOCAL_HOST}}/auth/login"
 					},
 					"response": []
 				}
