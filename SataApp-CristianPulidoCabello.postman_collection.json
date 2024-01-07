@@ -311,13 +311,13 @@
 											}
 										},
 										"url": {
-											"raw": "{{LOCAL_HOST}}/ticket/5fb05a52-eb6d-4d34-9e8d-98e6d01472fc/estado",
+											"raw": "{{LOCAL_HOST}}/ticket/fb25f398-1363-48d5-a695-4cf0ef67592f/estado",
 											"host": [
 												"{{LOCAL_HOST}}"
 											],
 											"path": [
 												"ticket",
-												"5fb05a52-eb6d-4d34-9e8d-98e6d01472fc",
+												"fb25f398-1363-48d5-a695-4cf0ef67592f",
 												"estado"
 											]
 										}
