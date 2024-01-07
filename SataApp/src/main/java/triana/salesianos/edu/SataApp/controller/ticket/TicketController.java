@@ -256,7 +256,14 @@ public class TicketController {
             @ApiResponse(responseCode = "200", description = "The ticket has been edited", content = {
                     @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = GetTicketDto.class)), examples = {
                             @ExampleObject(value = """
-                                       
+                                       {
+                                                "ticketId": "5fb05a52-eb6d-4d34-9e8d-98e6d01472fc",
+                                                "description": "Ticket 1",
+                                                "status": "Abierto",
+                                                "createdByUsername": "El Administrador",
+                                                "assignedTo": "Cristian Garcia",
+                                                "relatedInventoryItem": "3f0190ac-ebef-4fc2-99c9-5d44016da63a"
+                                            }
                                                   """) }) }),
             @ApiResponse(responseCode = "404", description = "Any ticket was found", content = @Content),
     })
