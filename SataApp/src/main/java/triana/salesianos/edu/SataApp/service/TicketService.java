@@ -38,9 +38,9 @@ public class TicketService {
         ticket.setDescription(ticketDto.description());
         ticket.setStatus(ticketDto.status());
 
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = authentication.getName();
+
         Optional<Users> optionalUser = userService.findByUsername(currentUsername);
         if (optionalUser.isPresent()) {
             Users createdBy = optionalUser.get();
