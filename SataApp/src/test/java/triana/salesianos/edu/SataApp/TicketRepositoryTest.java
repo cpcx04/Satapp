@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import triana.salesianos.edu.SataApp.dto.Ticket.GetTicketDto;
+import triana.salesianos.edu.SataApp.model.InventoryItems;
 import triana.salesianos.edu.SataApp.model.Ticket;
 import triana.salesianos.edu.SataApp.model.UserWorker;
 import triana.salesianos.edu.SataApp.repository.TicketRepository;
@@ -25,6 +26,9 @@ public class TicketRepositoryTest {
     @Test
     void findAllTicketsAssignedToUser(){
 
+        InventoryItems i1 = InventoryItems.builder()
+                .description("Merda")
+                .build();
 
 
         UserWorker u1 = UserWorker.builder()
@@ -42,22 +46,26 @@ public class TicketRepositoryTest {
                 .description("Ticket 1")
                 .createdBy(u1)
                         .assignedTo(u1)
+                .relatedInventoryItem(i1)
                                 .build();
 
         Ticket t2 = Ticket.builder()
                 .description("Ticket 2")
                 .createdBy(u1)
                 .assignedTo(u1)
+                .relatedInventoryItem(i1)
                 .build();
         Ticket t3 = Ticket.builder()
                 .description("Ticket 3")
                 .createdBy(u1)
                 .assignedTo(u1)
+                .relatedInventoryItem(i1)
                 .build();
         Ticket t4 = Ticket.builder()
                 .description("Ticket 4")
                 .createdBy(u2)
                 .assignedTo(u2)
+                .relatedInventoryItem(i1)
                 .build();
 
 
