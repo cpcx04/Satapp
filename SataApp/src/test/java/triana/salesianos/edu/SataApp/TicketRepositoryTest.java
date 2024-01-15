@@ -68,6 +68,7 @@ public class TicketRepositoryTest {
                 .relatedInventoryItem(i1)
                 .build();
 
+        entityManager.persist(i1);
 
         entityManager.persist(u1);
         entityManager.persist(u2);
