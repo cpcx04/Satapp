@@ -35,17 +35,13 @@ public class TicketServiceTest {
     @WithMockUser(username = "admin1", password = "admin1", roles = "ADMIN")
     void createAticket(){
         AddTicketDto ticketDto = new AddTicketDto("Ticket 1", "In progress", UUID.fromString("839e2b39-361e-4cc1-866f-f52bd9d812c3"), "admin1", UUID.fromString("839e2b39-361e-4cc1-866f-f52bd9d812c3"));
-
-
+        
         when(ticketRepository.save(any(Ticket.class))).thenReturn(new Ticket());
 
         Ticket result = ticketService.newTicket(ticketDto);
 
-        // Verificar que el ticket se haya guardado correctamente
         assertEquals("Ticket 1", result.getDescription());
         assertEquals("In progress", result.getStatus());
-
-
 
     }
 
