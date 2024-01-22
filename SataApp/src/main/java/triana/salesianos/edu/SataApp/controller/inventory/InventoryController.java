@@ -38,7 +38,7 @@ public class InventoryController {
     private final TypeService typeService;
 
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Gets all inventory items", content = {
+            @ApiResponse(responseCode = "200", description = "Gets all inventory items", content = {
                     @Content(mediaType = "application/json", examples = { @ExampleObject(value = """
                             [
                                 {
