@@ -98,12 +98,13 @@ public class InventoryControllerWithSecurityTest {
     void whenValidRequestWithAdmin_thenReturn200() throws Exception{
         GetInventoryDto mainModel =  Mockito.mock(GetInventoryDto.class);
         List<GetInventoryDto>invetoryList= inventoryService.findAll();
-        when(mainModel.getClass()).thenReturn(List.of(invetoryList));
+        when(mainModel.getClass()).thenReturn(invetoryList);
 
             MvcResult result = mockMvc.perform(get("/inventariable").with(httpBasic("admin1","admin1")))
                     .andExpect(status().isOk())
                     .andExpect(content().json(objectMapper.writeValueAsString(inventoryDto)))
                     .andReturn();
+
             SqmNode.log.info(result.getResponse().getContentAsString());
     }
 }
